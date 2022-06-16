@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { UserController } from './user/user.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
@@ -18,8 +17,7 @@ import { TodoModule } from './todo/todo.module';
         username: configService.get('DB_USER'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        synchronize: true,
-        logging: true,
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
       }),
     }),
     UserModule,
