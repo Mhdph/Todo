@@ -18,6 +18,10 @@ export class UserService {
     return this.UserRepository.save(user);
   }
 
+  findUserById(id: number) {
+    return this.UserRepository.findOneByOrFail({ id: id });
+  }
+
   findAll() {
     return this.UserRepository.find();
   }

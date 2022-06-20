@@ -25,6 +25,11 @@ export class UserController {
     return this.userService.findAll();
   }
 
+  @Get(':id')
+  findOne(@Param('id') id: number) {
+    return this.userService.findUserById(id);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
