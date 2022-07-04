@@ -7,21 +7,26 @@ import {
   Param,
   Delete,
   ValidationPipe,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { RoleGuard } from 'src/auth/guard/role.guard';
+import { Constans } from './utils/constans';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post()
+  @Post('/signUp')
   create(@Body(ValidationPipe) createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
   @Get()
-  findAll() {
+  @UseGuards(new RoleGuard(Constans.Roles.ADMIN_ROLE))
+  findAll(@Req() req) {
     return this.userService.findAll();
   }
 
@@ -31,7 +36,8 @@ export class UserController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  @UseGuards(new RoleGuard(Constans.Roles.ADMIN_ROLE))
+  remove(@Param('id') id: string, @Req() req) {
     return this.userService.remove(+id);
   }
 }

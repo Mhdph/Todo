@@ -25,6 +25,9 @@ export class UserService {
   findAll() {
     return this.UserRepository.find();
   }
+  findUserByEmail(email: string) {
+    return this.UserRepository.findOne({ where: { email: email } });
+  }
 
   remove(id: number) {
     return this.UserRepository.delete(id);
