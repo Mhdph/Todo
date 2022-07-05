@@ -10,8 +10,11 @@ import {
 } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
+import { ApiSecurity, ApiTags } from '@nestjs/swagger';
 
 @Controller('todo')
+@ApiTags('Todo')
+@ApiSecurity('JWT-auth')
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
